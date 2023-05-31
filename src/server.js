@@ -32,13 +32,13 @@ app.set('views', __dirname+'/views');
 app.use('/products', productsRouter)
 app.use('/chat', viewsRouter);
 const PORT =8080;
-const portSocket = 8081;
+
 console.log(__dirname)
- app.listen(PORT, ()=>console.log("conectado a puerto 8080"))
+const httpServer =app.listen(PORT, ()=>console.log("conectado a puerto 8080"))
 
 
 
- const socketServer = new Server(portSocket);
+ const socketServer = new Server(httpServer);
 
 socketServer.on('connection', async(socket)=>{
     console.log('¡🟢 New connection!', socket.id);
@@ -53,9 +53,9 @@ socketServer.on('connection', async(socket)=>{
         console.log(`${user} is logged in`);
     });
 
-    socket.on('chat:message', async(msg)=>{
-        await createMsgController(msg);
-        socketServer.emit('messages', await messagesManager.getAll());
+    socket.on('chat:message', async(message)=>{
+        await createMsgController(message);
+        socketServer.emit('messages', await allMsgController());
     });
 
     socket.on('newUser', (user)=>{

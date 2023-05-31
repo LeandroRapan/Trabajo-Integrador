@@ -16,6 +16,7 @@ export default class MsgManagerMongoDb{
         try {
            
             const msgs = await messagesModel.find()
+            if (!msgs) { msgs= 'escriba su mensaje'}
             
             return msgs;
             

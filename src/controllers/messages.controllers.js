@@ -3,24 +3,26 @@ import {
     getMsgByIdService,
     updateMsgService,
     deleteOneService,
-    deleteAllService
+    deleteAllService,
+    createMsgService
 } from '../services/messages.services.js'
 
 export const allMsgController = async (req, res, next) =>{
     try {
         const msgs = await allMsgService()
+        
         res.json(msgs)
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 export const createMsgController = async (req, res, next) =>{
     try {
-        const {msg} = req.body
-        const msgNew = await createMsgController(msg)
+        const {message} = req.body
+        const msgNew = await createMsgService(message)
         res.json(msgNew)
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 export const msgByIdController  = async (req, res, next) =>{
@@ -29,7 +31,7 @@ export const msgByIdController  = async (req, res, next) =>{
         const msg = await getMsgByIdService(id)
         res.json(msg)
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 export const  updateMsgController= async (req, res, next) =>{
@@ -40,7 +42,7 @@ export const  updateMsgController= async (req, res, next) =>{
         const upMsg = await updateMsgService(id, message)
         res.json(upMsg)
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 export const deleteOneController = async (req, res, next) =>{
@@ -49,7 +51,7 @@ export const deleteOneController = async (req, res, next) =>{
         const delOne = await deleteOneService ()
         res.json(delOne)
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
 export const deleteAllController = async (req, res, next) =>{
@@ -57,6 +59,6 @@ export const deleteAllController = async (req, res, next) =>{
         const  del= await deleteAllService()
         res.json(del)
     } catch (error) {
-        next(error)
+        console.log(error)
     }
 }
