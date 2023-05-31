@@ -1,11 +1,11 @@
-// import ProductsDaoMongoDB from "../daos/mongodb/products.dao.js";
+import ProductsDaoMongoDB from "../daos/mongodb/products.dao.js";
 
-// const prodDao= new ProductsDaoMongoDB()
+const prodDao= new ProductsDaoMongoDB()
 
-import ProductsDaoFs from "../daos/filesystem/products.dao.js"
-import { __dirname } from "../path.js";
+// import ProductsDaoFs from "../daos/filesystem/products.dao.js"
+// import { __dirname } from "../path.js";
 
-const prodDao= new ProductsDaoFs(__dirname+'/daos/filesystem/products.json');
+// const prodDao= new ProductsDaoFs(__dirname+'/daos/filesystem/products.json');
 
 export const getAllService = async ()=>{
     try {
