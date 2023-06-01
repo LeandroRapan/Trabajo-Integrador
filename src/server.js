@@ -33,7 +33,7 @@ app.use('/products', productsRouter)
 app.use('/chat', viewsRouter);
 const PORT =8080;
 
-console.log(__dirname)
+
 const httpServer =app.listen(PORT, ()=>console.log("conectado a puerto 8080"))
 
 
@@ -43,26 +43,29 @@ const httpServer =app.listen(PORT, ()=>console.log("conectado a puerto 8080"))
 socketServer.on('connection', async(socket)=>{
     console.log('¡🟢 New connection!', socket.id);
 
-    socketServer.emit('messages', await allMsgController());
+   
+     socketServer.emit('messages', await allMsgController());
 
-    socket.on('disconnect', ()=>{
-        console.log('¡🔴 User disconnect!');
-    });
+     socket.on('disconnect', ()=>{
+         console.log('¡🔴 User disconnect!');
+     });
 
-    socket.on('newUser', (user)=>{
-        console.log(`${user} is logged in`);
-    });
+//     socket.on('newUser', (user)=>{
+//         console.log(`${user} is logged in`);
+//     });
 
     socket.on('chat:message', async(message)=>{
-        await createMsgController(message);
+        
+        const requestBody = { message, username };
+         await createMsgController(requestBody);
         socketServer.emit('messages', await allMsgController());
-    });
+     });
 
-    socket.on('newUser', (user)=>{
-        socket.broadcast.emit('newUser', user);
-    });
+//     socket.on('newUser', (user)=>{
+//         socket.broadcast.emit('newUser', user);
+//     });
 
-    socket.on('chat:typing', (data)=>{
-        socket.broadcast.emit('chat:typing', data);
-    })
-});
+//     socket.on('chat:typing', (data)=>{
+//         socket.broadcast.emit('chat:typing', data);
+//     })
+ });

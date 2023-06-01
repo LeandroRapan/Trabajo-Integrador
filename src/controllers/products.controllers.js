@@ -9,6 +9,7 @@ import {
 export const getAllProductsController = async (req, res, next) =>{
     try {
         const docs = await getAllService()
+        
         res.json(docs)
     } catch (error) {
         next(error)

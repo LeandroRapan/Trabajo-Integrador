@@ -15,9 +15,10 @@ export default class MsgManagerMongoDb{
     async getAll(){
         try {
            
-            const msgs = await messagesModel.find()
-            if (!msgs) { msgs= 'escriba su mensaje'}
+            const msgs = await messagesModel.find({})
             
+             
+            console.log(msgs)
             return msgs;
             
         }

@@ -7,11 +7,16 @@ import {
     createMsgService
 } from '../services/messages.services.js'
 
+
+
+
 export const allMsgController = async (req, res, next) =>{
     try {
         const msgs = await allMsgService()
         
-        res.json(msgs)
+       
+        await res.json(msgs)
+        
     } catch (error) {
         console.log(error)
     }

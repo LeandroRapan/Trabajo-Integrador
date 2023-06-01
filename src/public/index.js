@@ -1,7 +1,7 @@
 
 const socket = io();
 
-let username = null;
+let user = null;
 
 if(!username){
     Swal.fire({
@@ -14,8 +14,8 @@ if(!username){
             }
         }
     }).then((input)=>{
-        username = input.value;
-        socket.emit('newUser', username);
+        user = input.value;
+        socket.emit('newUser', user);
     });
 };
 
@@ -26,7 +26,7 @@ const actions = document.getElementById('actions');
 
 btn.addEventListener('click', () =>{
     socket.emit('chat:message', {
-        username,
+        user,
         message: message.value
     });
     message.value = '';
@@ -35,14 +35,14 @@ btn.addEventListener('click', () =>{
 socket.on('messages', (data)=>{
     actions.innerHTML = '';
     const chatRender = data.map((msg)=>{
-        return `<p><strong>${msg.username}: ${msg.message}<strong></p>`
+        return `<p><strong>${msg.user}: ${msg.message}<strong></p>`
     }).join(' ')
     output.innerHTML = chatRender
 });
 
-socket.on('newUser', (username)=>{
+socket.on('newUser', (user)=>{
     Toastify({
-        text: `🟢 ${username} is logged in`,
+        text: `🟢 ${user} is logged in`,
         duration: 3000,
         gravity: 'top',
         position: 'right',
@@ -55,7 +55,7 @@ socket.on('newUser', (username)=>{
 });
 
 message.addEventListener('keypress', ()=>{
-    socket.emit('chat:typing', username);
+    socket.emit('chat:typing', user);
 });
 
 socket.on('chat:typing', (data)=>{
