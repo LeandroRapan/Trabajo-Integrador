@@ -15,7 +15,7 @@ export const allMsgController = async (req, res, next) =>{
         const msgs = await allMsgService()
         
        
-        await res.json(msgs)
+        return msgs
         
     } catch (error) {
         console.log(error)
@@ -23,7 +23,11 @@ export const allMsgController = async (req, res, next) =>{
 }
 export const createMsgController = async (req, res, next) =>{
     try {
+        const {user} = req.body
+        console.log(user)
         const {message} = req.body
+        
+        console.log(message)
         const msgNew = await createMsgService(message)
         res.json(msgNew)
     } catch (error) {

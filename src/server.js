@@ -54,11 +54,11 @@ socketServer.on('connection', async(socket)=>{
 //         console.log(`${user} is logged in`);
 //     });
 
-    socket.on('chat:message', async(message)=>{
+    socket.on('chat:message', async(msg)=>{
         
-        const requestBody = { message, username };
-         await createMsgController(requestBody);
-        socketServer.emit('messages', await allMsgController());
+        console.log(msg)
+         await createMsgController(msg);
+        socketServer.emit('messages', await JSON.stringify(allMsgController()));
      });
 
 //     socket.on('newUser', (user)=>{

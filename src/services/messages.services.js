@@ -4,7 +4,7 @@ const msgDao = new MsgManagerMongoDb();
 export const allMsgService = async()=>{
     try {
         const msgDocs = await msgDao.getAll();
-        console.log("server")
+        
         return msgDocs
     } catch (error) {
         console.log(error)

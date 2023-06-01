@@ -3,7 +3,7 @@ const socket = io();
 
 let user = null;
 
-if(!username){
+if(!user){
     Swal.fire({
         title: '¡Welcome to chat!',
         text: 'Insert your username here',
@@ -25,16 +25,18 @@ const output = document.getElementById('output');
 const actions = document.getElementById('actions');
 
 btn.addEventListener('click', () =>{
-    socket.emit('chat:message', {
+   let a= socket.emit('chat:message', {
         user,
         message: message.value
     });
     message.value = '';
+    
 });
 
 socket.on('messages', (data)=>{
     actions.innerHTML = '';
-    const chatRender = data.map((msg)=>{
+    console.log(data)
+    const chatRender =  data.map((msg)=>{
         return `<p><strong>${msg.user}: ${msg.message}<strong></p>`
     }).join(' ')
     output.innerHTML = chatRender

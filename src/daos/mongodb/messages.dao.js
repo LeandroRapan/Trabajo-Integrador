@@ -18,7 +18,7 @@ export default class MsgManagerMongoDb{
             const msgs = await messagesModel.find({})
             
              
-            console.log(msgs)
+            
             return msgs;
             
         }
