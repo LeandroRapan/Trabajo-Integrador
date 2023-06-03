@@ -6,14 +6,11 @@ import productsRouter from './routes/products.router.js'
 import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 import viewsRouter from './routes/views.router.js'
+import cartsRouter from './routes/carts.router.js'
 import { __dirname } from './path.js';
 
 import { allMsgController,
-    msgByIdController,
-updateMsgController,
-deleteOneController,
-deleteAllController,
-createMsgController
+ 
  } from './controllers/messages.controllers.js';
 import { allMsgService, createMsgService } from './services/messages.services.js';
 
@@ -33,6 +30,8 @@ app.set('views', __dirname+'/views');
 
 app.use('/products', productsRouter)
 app.use('/chat', viewsRouter);
+app.use('/cart', cartsRouter)
+
 const PORT =8080;
 
 
