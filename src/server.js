@@ -15,6 +15,8 @@ deleteOneController,
 deleteAllController,
 createMsgController
  } from './controllers/messages.controllers.js';
+import { allMsgService, createMsgService } from './services/messages.services.js';
+
 
 
  const app = express();
@@ -50,22 +52,22 @@ socketServer.on('connection', async(socket)=>{
          console.log('¡🔴 User disconnect!');
      });
 
-//     socket.on('newUser', (user)=>{
-//         console.log(`${user} is logged in`);
-//     });
+     socket.on('newUser', (user)=>{
+         console.log(`${user} is logged in`);
+     });
 
     socket.on('chat:message', async(msg)=>{
         
         console.log(msg)
-         await createMsgController(msg);
-        socketServer.emit('messages', await JSON.stringify(allMsgController()));
+         await createMsgService(msg);
+        socketServer.emit('messages', await allMsgService());
      });
 
-//     socket.on('newUser', (user)=>{
-//         socket.broadcast.emit('newUser', user);
-//     });
+     socket.on('newUser', (user)=>{
+         socket.broadcast.emit('newUser', user);
+     });
 
-//     socket.on('chat:typing', (data)=>{
-//         socket.broadcast.emit('chat:typing', data);
-//     })
+     socket.on('chat:typing', (data)=>{
+         socket.broadcast.emit('chat:typing', data);
+     })
  });

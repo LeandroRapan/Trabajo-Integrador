@@ -4,7 +4,7 @@ export default class ProductsDaoMongoDB {
     async getAllProducts() {
         try {
           const response = await productsModel.find({});
-          console.log(response)
+          
           return response;
           
         } catch (error) {
