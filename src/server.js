@@ -11,8 +11,8 @@ import { __dirname } from './path.js';
 
 import { allMsgController,
  
- } from './controllers/messages.controllers.js';
-import { allMsgService, createMsgService } from './services/messages.services.js';
+ } from './03-controllers/messages.controllers.js';
+import { allMsgService, createMsgService } from './01-services/messages.services.js';
 
 
 

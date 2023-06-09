@@ -1,4 +1,4 @@
-import MsgManagerMongoDb from "../daos/mongodb/messages.dao.js";
+import MsgManagerMongoDb from "../00-daos/mongodb/messages.dao.js";
 const msgDao = new MsgManagerMongoDb();
 
 export const allMsgService = async()=>{

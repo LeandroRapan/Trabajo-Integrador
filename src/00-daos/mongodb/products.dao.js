@@ -1,10 +1,13 @@
 import { productsModel } from "./models/products.model.js";
-
+import { cartModel } from "./models/Cart.model.js";
 export default class ProductsDaoMongoDB {
-    async getAllProducts() {
+    async getAllProducts(query,page= 1, limit =10, sort=1) {
         try {
-          const response = await productsModel.find({});
-          
+          const sortMode ={
+            price: sort
+          }
+          const response = await productsModel.paginate(query?{query}:{}, {page, limit, sort: sortMode});
+          console.log(response)
           return response;
           
         } catch (error) {
@@ -48,4 +51,39 @@ export default class ProductsDaoMongoDB {
         }
       }
 
+      async addProductToCart(cartId, prodId) {
+        try {
+          const cart = await cartModel.findById(cartId)
+          console.log(prodId)
+          await cart.product.push(prodId)
+          await cart.save()
+          return cart
+        } catch (error) {
+          console.log('error')
+        }
+      }
+// async agregationProducts(page=1, limit=10) {
+// try{
+//   const sort = 'des'
+//   const sortDirection = sort==='asc'? 1:-1
+//   const response = await productsModel.aggregate([
+//     {
+//       $match:{}
+//     },
+    
+//     {
+//       $sort:{
+//         price: sortDirection
+//       }
+      
+//     }
+//   ])
+//   await response.paginate({}, {page, limit})
+//   return response;
+// }catch(error){
+//       console.log(error)
+//     }
+
+// }
 }
+

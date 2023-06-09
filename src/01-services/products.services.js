@@ -1,4 +1,4 @@
-import ProductsDaoMongoDB from "../daos/mongodb/products.dao.js";
+import ProductsDaoMongoDB from "../00-daos/mongodb/products.dao.js";
 
 const prodDao= new ProductsDaoMongoDB()
 
@@ -7,9 +7,10 @@ const prodDao= new ProductsDaoMongoDB()
 
 // const prodDao= new ProductsDaoFs(__dirname+'/daos/filesystem/products.json');
 
-export const getAllService = async ()=>{
+export const getAllService = async (query,page, limit,sort)=>{
     try {
-        const docs = await prodDao.getAllProducts()
+        const docs = await prodDao.getAllProducts(query,page, limit,sort)
+        // console.log(docs)
         return docs
     } catch (error) {
         console.log(error)
@@ -54,4 +55,27 @@ export const deleteService = async (id)=>{
     } catch (error) {
         console.log(error)
     }
+
 }
+export const addProductToCartService = async (cartId, prodId)=>{
+    try {
+        const prodExist = await prodDao.getProductById(prodId);
+        const prodToCart = await prodDao.addProductToCart(cartId, prodId)
+        if (!prodExist) {throw new Error('producto no encontrado')}
+        else{
+            return prodToCart
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+// export const agregationProductsService = async(page,limit)=>{
+//     try {
+//         const agregation = await prodDao.agregationProducts(page,limit);
+//         return agregation
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }

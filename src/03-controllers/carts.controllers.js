@@ -1,4 +1,4 @@
-import { getCartsService, getCartByIdServide, createCartService, updateCartService } from "../services/cart.services.js";
+import { getCartsService, getCartByIdServide, createCartService, updateCartService } from "../01-services/cart.services.js";
 
 
 export const getCartsController= async(req,res, next)=>{
@@ -22,7 +22,7 @@ export const createCartController= async(req,res, next)=>{
     try {
         const {obj} = req.body
         const newC= await createCartService(obj);
-        res.json(newc)
+        res.json(newC)
 
     } catch (error) {
         next(error)
