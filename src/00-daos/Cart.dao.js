@@ -1,5 +1,5 @@
 import { cartModel } from "./mongodb/models/Cart.model.js";
-
+import { productsModel } from "./mongodb/models/products.model.js";
 export default class CartDao {
     
   
@@ -39,6 +39,40 @@ export default class CartDao {
             return updCart
         }catch(error){
         console.log(error)
+        }
+    }
+
+    async cartDeleteOne (cId, prodId){
+        try {
+            const cart = await cartModel.findById(cId);
+            console.log(cart)
+            if(!cart) throw new Error ('carro que?')
+            const prodInCart =  cart.products.findIndex(p => p === prodId)
+            cart.products.splice(prodInCart, 1)
+            console.log(cart)
+            await cart.save()
+            return cart
+
+
+
+        } catch (error) {
+           console.log(error) 
+        }
+    }
+
+    async updateProductQuantity (cid, pid, quantity){
+        try {
+            const cart = await cartModel.findById(cid);
+            if (!cart) throw new Error ('DAO: ni idea del carro ese');
+            console.log(pid)
+            const productInCart = cart.products.find(p=> p._id == pid);
+            if (!productInCart) throw new Error ('DAO: encontré el carrito pero eso no estaba');
+           const upProd = await productsModel.updateProduct(pid, { quantity });
+           if(!upProd) throw new Error('cuantos eran?')
+           return cart
+
+        } catch (error) {
+            console.log(error)
         }
     }
 

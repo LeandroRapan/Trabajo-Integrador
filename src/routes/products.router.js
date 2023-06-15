@@ -16,7 +16,7 @@ router.get('/:id', getProductByIdController);
 router.post('/', createProductController);
 router.put('/:id', updateProductController);
 router.delete('/:id', deleteProductController);
-router.post('/add/:cartId/:prodId', addProductToCartController)
+router.post('/:pid/cart/:cid', addProductToCartController)
 
 
 export default router;

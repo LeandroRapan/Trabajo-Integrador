@@ -35,3 +35,21 @@ export const  updateCartService  = async (id, obj)=>{
         console.log(error)
     }
 }
+
+export const  cartDeleteOneService = async (cid, pid)=>{
+    try {
+        const del = await cDao.cartDeleteOne(cid, pid)
+        return del;
+    } catch (error) {
+        console.log(error)   
+    }
+}
+
+export const  updateProductQuantityService = async (cid, pid, quantity)=>{
+    try {
+        const udtQ = await cDao.updateProductQuantity(cid,pid, quantity);
+        return udtQ;
+    } catch (error) {
+        
+    }
+}

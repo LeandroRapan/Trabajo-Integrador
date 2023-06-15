@@ -1,4 +1,4 @@
-import { getCartsService, getCartByIdServide, createCartService, updateCartService } from "../01-services/cart.services.js";
+import { getCartsService, getCartByIdServide, createCartService, updateCartService, cartDeleteOneService, updateProductQuantityService } from "../01-services/cart.services.js";
 
 
 export const getCartsController= async(req,res, next)=>{
@@ -36,5 +36,32 @@ export const updateCartController = async(req,res, next)=>{
         res.json(updCart)
     } catch (error) {
         next(error)
+    }
+}
+
+export const cartdeleteOneController = async ( req, res, next)=>{
+    try {
+        const {cid}= req.params;
+        const {pid}= req.params;
+        const del = await cartDeleteOneService(cid, pid)
+        res.json(del)
+    } catch (error) {
+        next(error)
+        
+    }
+}
+export const updateProductQuantityController = async(req, res, next)=>{
+    try {
+        const {cid} = req.params;
+        const {pid} =req.params;
+        console.log(pid)
+        const quantity = req.body;
+        const upd= updateProductQuantityService(cid,pid, quantity);
+        res.json(upd)
+
+        
+    } catch (error) {
+        next(error)
+        
     }
 }

@@ -35,7 +35,7 @@ export default class ProductsDaoMongoDB {
     
       async updateProduct(id, obj) {
         try {
-          await productsModel.updateOne({_id: id}, obj);
+          await productsModel.findByIdAndUpdate({_id: id}, obj);
           return obj;
         } catch (error) {
           console.log(error);
@@ -54,8 +54,8 @@ export default class ProductsDaoMongoDB {
       async addProductToCart(cartId, prodId) {
         try {
           const cart = await cartModel.findById(cartId)
-          console.log(prodId)
-          await cart.product.push(prodId)
+          console.log(cart)
+          cart.products.push(prodId)
           await cart.save()
           return cart
         } catch (error) {

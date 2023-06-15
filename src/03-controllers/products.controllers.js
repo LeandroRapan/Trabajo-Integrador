@@ -87,9 +87,11 @@ export const deleteProductController = async (req, res, next) =>{
 }
 export const addProductToCartController = async (req, res, next) =>{
     try {
-        const { cartId }= req.params;
-        const { prodId}= req.params
-        const addProd = await addProductToCartService(cartId,prodId);
+        console.log('inicio proceso controller')
+        
+        const { cid }= req.params;
+        const { pid }= req.params
+        const addProd = await addProductToCartService(cid, pid);
         res.json(addProd)
     } catch (error) {
         
