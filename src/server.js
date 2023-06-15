@@ -8,16 +8,16 @@ import { Server } from 'socket.io';
 import viewsRouter from './routes/views.router.js'
 import cartsRouter from './routes/carts.router.js'
 import { __dirname } from './path.js';
-
-import { allMsgController,
- 
- } from './03-controllers/messages.controllers.js';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import { allMsgController} from './03-controllers/messages.controllers.js';
 import { allMsgService, createMsgService } from './01-services/messages.services.js';
 
 
 
- const app = express();
-
+const app = express();
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(errorHandler);
@@ -31,7 +31,27 @@ app.set('views', __dirname+'/views');
 app.use('/products', productsRouter)
 app.use('/chat', viewsRouter);
 app.use('/cart', cartsRouter)
+app.use(
+    session({
+      secret: 'sessionKey',
+      resave: false,
+      saveUninitialized: true,
+      cookie: {
+        maxAge: 10000
+      },
+      store: new mongoStore({
+        mongoUrl: 'mongodb+srv://admin:admin@cluster0.vcjyxe3.mongodb.net/coderhouse?retryWrites=true&w=majority',
+        // autoRemoveInterval: 1,
+        //autoRemove: "interval",
+        ttl: 10,
+        // crypto: {
+        //   secret: '1234',       //encripta los datos de la sesion
+        // },
+      }),
+    })
+  )
 
+app.use('/users',usersRouter)
 const PORT =8080;
 
 
