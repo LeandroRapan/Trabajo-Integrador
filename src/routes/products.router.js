@@ -7,7 +7,7 @@ import {
     updateProductController,
     // agregtionProductsController,
     addProductToCartController
-} from '../03-controllers/products.controllers.js'
+} from '../02-controllers/products.controllers.js'
 
 const router = Router();
 // router.get('/', agregtionProductsController)

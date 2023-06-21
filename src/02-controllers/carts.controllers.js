@@ -54,7 +54,7 @@ export const updateProductQuantityController = async(req, res, next)=>{
     try {
         const {cid} = req.params;
         const {pid} =req.params;
-        console.log(pid)
+        
         const quantity = req.body;
         const upd= updateProductQuantityService(cid,pid, quantity);
         res.json(upd)

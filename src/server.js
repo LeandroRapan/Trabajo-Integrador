@@ -7,11 +7,12 @@ import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 import viewsRouter from './routes/views.router.js'
 import cartsRouter from './routes/carts.router.js'
+import usersRouter from './routes/user.routes.js'
 import { __dirname } from './path.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import { allMsgController} from './03-controllers/messages.controllers.js';
+import { allMsgController} from './02-controllers/messages.controllers.js';
 import { allMsgService, createMsgService } from './01-services/messages.services.js';
 
 
@@ -39,7 +40,7 @@ app.use(
       cookie: {
         maxAge: 10000
       },
-      store: new mongoStore({
+      store: new MongoStore({
         mongoUrl: 'mongodb+srv://admin:admin@cluster0.vcjyxe3.mongodb.net/coderhouse?retryWrites=true&w=majority',
         // autoRemoveInterval: 1,
         //autoRemove: "interval",

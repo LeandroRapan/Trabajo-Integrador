@@ -47,7 +47,7 @@ export const  updateMsgController= async (req, res, next) =>{
     try {
         const {id} =req.params
         const {message}= req.body
-        let msg = await getMsgByIdService(id)
+        
         const upMsg = await updateMsgService(id, message)
         res.json(upMsg)
     } catch (error) {
