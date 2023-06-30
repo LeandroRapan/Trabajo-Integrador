@@ -1,14 +1,14 @@
 
-import { userLoginService, userRegisterService } from '../01-services/users.services.js';
+import UserDao from "../00-daos/mongodb/user.dao.js"
+const userDao = new UserDao();
 
 
 export const userRegisterController = async (req, res) => {
-    try {
-        
-        const newUserData = req.body
-        const newUser = await userRegisterService(newUserData)
-      
-          res.json(newUser)
+    try {      
+          res.json({
+            msg: 'registro correcto',
+            session: req.session
+          })
       
     } catch (error) {
       console.log(error);
@@ -17,15 +17,39 @@ export const userRegisterController = async (req, res) => {
 
   export const userLoginController = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await userLoginService(req.body)
-        if(user){
-            req.session.email = user.email;
-        req.session.password = user.password;
-        }
-
-        res.json(user)
+    
+        const user = await userDao.getByid(req.session.passport.user);
+        const {first_name,last_name, email, age, role}= user;
+        res.json({
+            msg:'Login correcto',
+            session: req.session,
+        userData: {
+            first_name,
+            last_name,
+            email,
+            age,
+            role
+        }        })
     } catch (error) {
       console.log(error);
+    }
+}
+
+export const githubResponse = async (req,res,nex)=>{
+    try {
+        const{first_name, last_name, email, role, isGithub}= req.user;
+        res.json({
+            msg:'registro/login github ok',
+            session: req.session,
+            userData:{
+                first_name,
+                last_name,
+                email,
+                role,
+                isGithub
+            }
+        })
+    } catch (error) {
+        next(error)
     }
 }

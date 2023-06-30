@@ -17,11 +17,12 @@ export const userRegisterService =async (newUserData) => {
     }
 }
 
-export const userLoginService = async (user) =>{
+export const userLoginService = async (email, password) =>{
     
    try {
-     const userlog = await userDao.loginUser(user);
-    if(user) {
+     const userlog = await userDao.loginUser(email, password);
+     console.log(userlog)
+    if(userlog) {
         
         // res.redirect('/views/profile');
         return userlog

@@ -7,13 +7,16 @@ import handlebars from 'express-handlebars';
 import { Server } from 'socket.io';
 import viewsRouter from './routes/views.router.js'
 import cartsRouter from './routes/carts.router.js'
-import usersRouter from './routes/user.routes.js'
-import { __dirname } from './path.js';
+ import usersRouter from './routes/user.routes.js'
+import { __dirname } from './utils.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import { allMsgController} from './02-controllers/messages.controllers.js';
 import { allMsgService, createMsgService } from './01-services/messages.services.js';
+import passport from 'passport';
+import './config/passport.config.js'
+import './config/passport.github.js'
 
 
 
@@ -52,7 +55,11 @@ app.use(
     })
   )
 
-app.use('/users',usersRouter)
+ app.use('/users',usersRouter)
+
+
+app.use(passport.initialize())
+app.use(passport.session())
 const PORT =8080;
 
 
