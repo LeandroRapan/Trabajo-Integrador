@@ -15,8 +15,11 @@ import MongoStore from 'connect-mongo';
 import { allMsgController} from './02-controllers/messages.controllers.js';
 import { allMsgService, createMsgService } from './01-services/messages.services.js';
 import passport from 'passport';
-import './config/passport.config.js'
-import './config/passport.github.js'
+import './config/passport.config.js';
+import './config/passport.github.js';
+import dotenv from 'dotenv';
+dotenv.config()
+
 
 
 
